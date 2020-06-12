@@ -1,0 +1,65 @@
+alphabet=Codon(letter=DNA)
+genetic_code=Standard
+
+input.sequence.format=Fasta
+input.sequence.file=$(INPUT_ALIGNMENT)
+
+# Remove stop codons
+input.sequence.remove_stop_codons=yes
+input.sequence.sites_to_use = all
+input.sequence.max_gap_allowed = 0
+input.sequence.max_unresolved_allowed = 6
+
+input.tree.file=$(INPUT_TREE)
+input.tree.format=Newick
+init.brlen.method = Equal (value=1)
+
+likelihood.recursion = simple
+likelihood.recursion_simple.compression = simple
+
+# ------------------------------------------------------------------------------
+#                           Substitution model parameters
+# ------------------------------------------------------------------------------
+
+nonhomogeneous=general
+nonhomogeneous.number_of_models=1
+
+model1=YN98(frequencies=F3X4, initFreq=observed)
+model1.nodes_id=0:$(NODE_NUMBER)
+
+nonhomogeneous.root_freq=F3X4(init=observed)
+# ------------------------------------------------------------------------------
+#                              Optimization
+# ------------------------------------------------------------------------------
+
+optimization.verbose = 1
+
+optimization.max_number_f_eval = 1000
+optimization.tolerance = 0.001
+optimization.message_handler = none
+optimization.profiler = $(OUTPUT_DIR)/$(GENE).prof
+optimization.topology = no
+optimization.method=fullD //[DB|fullD]
+optimization.method_DB.nstep=1
+optimization.scale_first=no
+optimization.verbose=3
+
+optimization.backup.file=$(OUTPUT_DIR)/$(GENE).bup
+
+#output.tree_ids.file = $(OUTPUT_DIR)/$(GENE).ids
+
+# Should we write the resulting tree? none or file name.
+output.tree.file = $(OUTPUT_DIR)/$(GENE)_ml.dnd
+# model ouput file:
+
+output.estimates=$(OUTPUT_DIR)/$(GENE).params
+
+# ------------------------------------------------------------------------------
+#                                     Bootstrap
+# ------------------------------------------------------------------------------
+
+bootstrap.number = 0
+# Tell if numerical parameters should be kept to their initial value when bootstrapping:
+bootstrap.approximate = no
+# Set this to yes for detailed output when bootstrapping.
+bootstrap.verbose = no

@@ -1,0 +1,24 @@
+alphabet = Codon(letter=DNA)
+genetic_code=Standard
+
+input.sequence.format=Fasta
+input.sequence.file=$(INPUT_ALIGNMENT)
+
+input.tree.file= $(ML_DIR)/$(GENE)_ml.dnd
+input.tree.format = Newick
+
+# Remove stop codons
+input.sequence.remove_stop_codons=yes
+input.sequence.sites_to_use = all
+input.sequence.max_gap_allowed = 6
+input.sequence.max_unresolved_allowed = 6
+
+
+param = $(ML_DIR)/$(GENE).params
+
+
+map.type = Combination(reg1=DnDs, reg2=SW)
+
+output.counts = PerType(prefix=$(OUT_DIR)/$(GENE).counts_)
+
+nullModelParams = YN98.omega*=1
