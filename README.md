@@ -1,8 +1,6 @@
 # Divergent gerbil genes
 
-Analyses of divergence between genes in the gerbil genome and those of other rodents.
-
-These analyses have been used to prepare the following manuscript (currently under review):
+The scripts in this repository were written during the preparation of the following manuscript (currently under peer review):
 
 > Divergent genes in gerbils: origin, evolution and phenotypic relevance.
 > Yichen Dai, Rodrigo Pracana and Peter WH Holland
@@ -10,11 +8,13 @@ These analyses have been used to prepare the following manuscript (currently und
 > Department of Zoology, University of Oxford, 11a Mansfield Road,
 Oxford, OX1 3SZ, UK
 
+In this manuscript, we analyse the divergence of the protein-coding genes of two gerbils in relation to those of other rodents and of *H. sapiens*.
+
 ## Scripts
 
 This repository is divided into three parts:
 
-1. Scripts used to find groups of orthologous genes between rodents
+1. Scripts used to find groups of orthologous genes between rodents and *H. sapiens* 
 2. Scrips used to align each group of orthologous genes and measure substitution rates from the resulting alignments
 3. Scripts used to measure protein dissimilarity between species for each group of orthologous genes
 
