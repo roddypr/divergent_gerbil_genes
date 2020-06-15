@@ -9,3 +9,9 @@ These analyses have been used to prepare the following manuscript (currently und
 
 > Department of Zoology, University of Oxford, 11a Mansfield Road,
 Oxford, OX1 3SZ, UK
+
+This repository is divided into three parts:
+
+1. Scripts used to find groups of orthologous genes between rodents
+2. Scrips used to align each group of orthologous genes and measure substitution rates from the resulting alignments
+3. Scripts used to measure protein dissimilarity between species for each group of orthologous genes
