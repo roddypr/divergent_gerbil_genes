@@ -140,43 +140,44 @@ mv results/longest_tx_fa/Results_May13 results/orthofinder
 
 I copied the following from the file `Statistics_Overall.csv`.
 
-Number of genes | 252643
-Number of genes in | 241338
-Number of unassigned genes | 11305
-Percentage of genes in orthogroups | 95.5
-Percentage of unassigned gene | 4.5
-Number of orthogroups | 18321
-Number of species-specific orthogroups | 26
-Number of genes in species-specific orthogroups | 112
-Percentage of genes in species-specific orthogroups | 0.0
-Mean orthogroup size | 13.2
-Median orthogroup size | 13.0
-G50 (assigned genes) | 13
-G50 (all genes) | 13
-O50 (assigned genes) | 7030
-O50 (all genes) | 7465
-Number of orthogroups with all species present | 10559
-Number of single-copy orthogroups | 7053
+| Category | Number |
+| ---------| ------ |
+| Number of genes | 252643 |
+| Number of genes in | 241338 |
+| Number of unassigned genes | 11305 |
+| Percentage of genes in orthogroups | 95.5 |
+| Percentage of unassigned gene | 4.5 |
+| Number of orthogroups | 18321 |
+| Number of species-specific orthogroups | 26 |
+| Number of genes in species-specific orthogroups | 112 |
+| Percentage of genes in species-specific orthogroups | 0.0 |
+| Mean orthogroup size | 13.2 |
+| Median orthogroup size | 13.0 |
+| G50 (assigned genes) | 13 |
+| G50 (all genes) | 13 |
+| O50 (assigned genes) | 7030 |
+| O50 (all genes) | 7465 |
+| Number of orthogroups with all species present | 10559 |
+| Number of single-copy orthogroups | 7053 |
 
 
 Although there are 10559 orthogroups with genes from all species, there is a large number of orthogroups with missing a gene in a single species. We need to make sure that there isn't a single species that is contributing to this result.
 
-Number of species in orthogroup	Number of orthogroups
---- | ---
-1 | 26
-2 | 743
-3 | 346
-4 | 334
-5 | 273
-6 | 232
-7 | 239
-8 | 286
-9 | 418
-10 | 559
-11 | 1081
-12 | 3225
-13 | 10559
-
+| Number of species in orthogroup	| Number of orthogroups
+| --- | ---
+| 1 | 26 |
+| 2 | 743 |
+| 3 | 346 |
+| 4 | 334 |
+| 5 | 273 |
+| 6 | 232 |
+| 7 | 239 |
+| 8 | 286 |
+| 9 | 418 |
+| 10 | 559 |
+| 11 | 1081 |
+| 12 | 3225 |
+| 13 | 10559 |
 
 ```r
 
