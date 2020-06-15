@@ -147,6 +147,8 @@ We use HmmCleaner.pl to remove 'nonhomologous' sequences from each MSA. A diffic
 
 ```sh
 
+# First download macse_v2.03.jar
+
 mkdir -p tmp/alignments/clean
 
 cat tmp/genes \
@@ -169,6 +171,8 @@ We can then clean the alignment, and re-create the nucleotide sequence of the cl
 
 conda deactivate
 conda deactivate
+
+# First install HmmCleaner.pl and add to PATH
 
 # Clean
 cat tmp/genes \
@@ -306,8 +310,6 @@ After classing each alignment by number of species, we run `bppml` to estimate t
 # cp -r ~/bppSuite .
 
 mkdir -p tmp/biopp/ml
-
-# conda activate bpp
 
 for i in {2..15}; do
 
