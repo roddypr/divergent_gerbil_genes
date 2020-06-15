@@ -1,7 +1,8 @@
 #!/usr/bin/Rscript
 
 #Script for parsing out gaps in DNA alignment while keeping integrity of entire alignment
-#Script to then translate parsed DNA alignment and retain only sites that are conserved in two selected outgroups
+
+#Script to then translate parsed DNA alignment and retain only sites that are conserved in three selected outgroups
 
 library(stringr)
 library(Biostrings)
@@ -9,13 +10,13 @@ library(Biostrings)
 #Create function for identifying outgroups
 get_outgroup_species <- function(species_vec) {
 	outgroup_alternatives <- list(
-		c("cavia_porcellus", "homo_sapiens"),
-	        c("homo_sapiens", "chinchilla_lanigera"),
-	        c("homo_sapiens", "ictidomys_tridecemlineatus"),
-		c("homo_sapiens", "octodon_degus"),
-		c("homo_sapiens", "peromyscus_maniculatus"),
-		c("oryctolagus_cuniculus", "ictidomys_tridecemlineatus"),
-		c("homo_sapiens", "jaculus_jaculus"))
+		c("cavia_porcellus", "homo_sapiens", "ictidomys_tridecemlineatus"),
+	  c("homo_sapiens", "cavia_porcellus", "jaculus_jaculus"),
+	  c("homo_sapiens", "cavia_porcellus", "nannospalax_galili"),
+		c("homo_sapiens", "octodon_degus","chinchilla_lanigera"),
+		c("homo_sapiens", "ictidomys_tridecemlineatus", "nannospalax_galili"),
+		c("homo_sapiens", "octodon_degus", "jaculus_jaculus"),
+		c("oryctolagus_cuniculus", "ictidomys_tridecemlineatus","nannospalax_galili"))
 
 	for(i in 1:length(outgroup_alternatives)) {
 		if (all(outgroup_alternatives[[i]] %in% species_vec)) {
@@ -30,7 +31,8 @@ get_outgroup_species <- function(species_vec) {
 	return(outgroup_species)
 }
 
-#Create function to divide DNA alignment into codons (chunks of three nucleotides, including gaps)
+# Create function to divide DNA alignment into codons
+# (chunks of three nucleotides, including gaps)
 
 divide_into_codons <- function(my_seq) {
 	start <- seq(1,nchar(my_seq),3)
@@ -38,9 +40,9 @@ divide_into_codons <- function(my_seq) {
 	return(str_sub(my_seq, start, stop))
 }
 
-#Create function to remove all codons that contain gaps
-#Ensure this deletion happens stimutaneously for all species (i.e. ensure alignment still is in place)
-
+# Function to remove all codons that contain gaps
+# Ensure this deletion happens stimutaneously for all species
+# (i.e. ensure alignment still is in place)
 
 remove_ns <- function(dna_alignment) {
 	require(stringr)
@@ -108,7 +110,7 @@ if (!dir.exists(output_directory)) {
 for (gene_file in alignment_files) {
 
 	gene_path <- file.path(input_directory, gene_file)
-	gene_name <- gsub(".fa", "", gene_file)
+	gene_name <- gene_file
 
 	dna_alignment <- readDNAStringSet(gene_path)
 	dna_alignment <- remove_ns(dna_alignment)
@@ -125,7 +127,9 @@ for (gene_file in alignment_files) {
 	# split into list of character vectors
 	outgroup_alignment <- strsplit(as.character(outgroup_alignment), split = "")
 
-	conserved_sites <- which(outgroup_alignment[[1]] == outgroup_alignment[[2]])
+	conserved_sites_1 <- which(outgroup_alignment[[1]] == outgroup_alignment[[2]])
+	conserved_sites_2 <- which(outgroup_alignment[[1]] == outgroup_alignment[[3]])
+	conserved_sites   <- intersect(conserved_sites_1, conserved_sites_2)
 
 	# go back to alignment and subset to conserved sites
 	aa_alignment_split <- strsplit(as.character(aa_alignment), split = "")
