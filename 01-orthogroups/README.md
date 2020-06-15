@@ -1,49 +1,29 @@
 # 1-to-1 orthologs between rodents and human
 
-We want to find 1-to-1 orthologous protein-coding genes between the genomes of two gerbils, 7 other rodents and *H. sapiens*.
+We want to find 1-to-1 orthologous protein-coding genes between the genomes of two gerbils, 10 other rodents and *H. sapiens*.
 
 ## Input
 
-The directory `input_data`includes a folder per species with a cds fasta  file (`genus_species.cds.fa.gz`), a peptide fasta (`genus_species.pep.fa.gz`) and a gff file (`genus_species.gff3.gz`), as downloaded from ensembl.
+The directory `input` three folders, one for the cds fasta files for each species (`genus_species.cds.fa.gz`), one for the peptide fasta files (`genus_species.pep.fa.gz`) and one for the gff files (`genus_species.gff3.gz`), as downloaded from ensembl.
 
 ```sh
 
-mkdir -p input/annotations/gff
+# Add the cds fasta file for all species in the format genus_species.cds.fa.gz
 mkdir -p input/annotations/cds
+ls input/annotations/cds | head -n2
+# cavia_porcellus.cds.fa.gz
+# chinchilla_lanigera.cds.fa.gz
+
 mkdir -p input/annotations/pep
+ls input/annotations/pep | head -n2
+# cavia_porcellus.pep.fa.gz
+# chinchilla_lanigera.pep.fa.gz
 
-mkdir -p tmp
-
-ANN_DIR=../input_data/2019-01-17-input/rodent_genome_annotations/
-
-## Make file with one "genus_species" per line
-ls ${ANN_DIR} \
-  | cut -f 5 -d '/' > tmp/file_list
-
-while read p; do
-  ln -sfr ${ANN_DIR}/$p/*gff3.gz input/annotations/gff/$p.gff3.gz
-  ln -sfr ${ANN_DIR}/$p/*cds.all.fa.gz input/annotations/cds/$p.cds.fa.gz
-  ln -sfr ${ANN_DIR}/$p/*pep.all.fa.gz input/annotations/pep/$p.pep.fa.gz
-done < tmp/file_list
-
-```
-
-The genomes of the fat sand rat is not formatted in a standard way.
-
-```sh
-
-cat \
-  ../input_data/2018-06-26-input/sand_rat_gene_annotation/Sandrat_geneV2.1.gff \
-  | bgzip -c > input/annotations/gff/psammomys_obesus.gff3.gz
-
-cat \
-  ../input_data/2018-06-26-input/sand_rat_gene_annotation/Sandrat_geneV2.1.gff \
-  | bgzip -c > input/annotations/cds/psammomys_obesus.cds.fa.gz
-
-cat \
-  ../input_data/2018-06-26-input/sand_rat_gene_annotation/Sandrat_geneV2.1.pep.fa \
-  | bgzip -c > input/annotations/pep/psammomys_obesus.pep.fa.gz
-
+# Add the gff3 file for all species in the format genus_species.gff3.gz
+mkdir -p input/annotations/gff
+ls input/annotations/gff | head -n2
+# cavia_porcellus.gff3.gz
+# chinchilla_lanigera.gff3.gz
 
 ```
 
