@@ -179,6 +179,8 @@ Although there are 10559 orthogroups with genes from all species, there is a lar
 | 12 | 3225 |
 | 13 | 10559 |
 
+## Summary figures
+
 ```r
 
 gene_count <- "results/orthofinder/Orthogroups.GeneCount.csv"
