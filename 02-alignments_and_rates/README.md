@@ -464,9 +464,9 @@ ln -sfr results/trimmed_trees tmp
 
 ```
 
-## Running PAML
+## Branch test in PAML
 
-## Run codeml for each gene in the alignment
+## Run branch test with codeml for each gene in the alignment
 
 ```sh
 
@@ -515,7 +515,7 @@ Rscript bin/paml-LRT.r
 
 ```
 
-## Give gene name to paml results
+### Give gene name to branch test results
 
 
 ```sh
@@ -527,7 +527,7 @@ Rscript bin/PAML_LRT_mouse_coord.R \
 
 ```
 
-## Parse branch lengths for null model
+### Parse branch lengths for null model
 
 We first get the branch length table for each gene.
 
@@ -563,5 +563,86 @@ ls results/paml/*null.txt \
 conda activate r-pegas                                                                     
 
 Rscript bin/null_branch_lengths.R
+
+```
+
+## Branch-site test
+
+We use the branch-site test to identify sand rat proteins that show evidence of positive selection at specific residues. We use an implementation of this test that incorporates codon substitution rate variation and thereby controls for variation in the synonymous substitution rate caused by factors such as GC-biased gene conversion ([Davydov, Salamin and Robinson-Rechavi, 2019](https://academic.oup.com/mbe/article/36/6/1316/5371074)). This model is implemented in the programme Godon.
+
+```sh
+
+
+wget https://bitbucket.org/Davydov/godon/downloads/godon-master-linux-gnu-x86_64 -O godon
+
+chmod +x godon
+# branch: master, revision: ff28c19a52864162342c0756577eb656999439f4, build time: 2020-06-13_15:14:44
+
+mkdir -p results/godon_branch_site
+tail -n +2 results/masked_alignments_index \
+  | cut -f 1 \
+  | parallel -j 6 'bash bin/run_godon_branch_site.sh {} \
+  results/masked_alignments \
+  tmp/trimmed_trees \
+  results/godon_branch_site'
+
+```
+
+
+Then we parse the output (D), defined as the difference in likelihoods between the null model (no positive selection at any residue) and the alternative model (positive selection at some residues).
+
+```sh
+
+ls results/godon_branch_site | cut -f 1 -d "_" > tmp/godon_list
+
+while read p; do
+  echo $p >> tmp/godon_branch_site_d
+  grep "Final D" results/godon_branch_site/${p}_bs_codon_gamma.txt>> tmp/godon_branch_site_d
+done < tmp/godon_list
+
+cat tmp/godon_branch_site_d | ruby -pe 'gsub(/Final D=/, "")' \
+  | paste - - >  tmp/godon_branch_site_d_parsed
+
+```
+
+We use a likelihood ratio test (LTR) to calculate the P-value for each branch-site test.
+
+
+```r
+
+# Performs likelihood-ratio test on Godon output,
+  # comparing branch and null models
+
+# ---------------------------------------------------------------------------- #
+
+tests           <- read.table("tmp/godon_branch_site_d_parsed")
+colnames(tests) <- c("id", "D")
+
+# ---------------------------------------------------------------------------- #
+# Degrees of freedom
+tests$df <- 1
+
+# P-value
+tests$p.val <- pchisq(tests$D, tests$df, lower.tail=FALSE)
+
+```
+
+Note that multiple testing correction is not straightforward in this data set because there is a huge excess of tests where P value is 1. We applied the 1-sided robust FDR correction method ([Pounds and Cheng, 2006](https://academic.oup.com/bioinformatics/article/22/16/1979/208386)) for tests where `P < 0.99`:
+
+
+```r
+
+fdr_correction <- function(p) {
+
+  require(prot2D)
+
+  # Only run where p < 0.99
+  p[p < 0.99] <- robust.fdr(p[p < 0.99])$q
+
+  return(p)
+
+}
+
+tests$q_fdr <- fdr_correction(tests$p.val)
 
 ```
