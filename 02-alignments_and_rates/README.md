@@ -4,7 +4,7 @@ The scripts in this directory perform the following steps:
 * align the sequences of each group of orthologous genes
 * filter the resulting alignments
 * measure the substitution rates per mutational category with bioppml
-* measure dN and dS with PAML
+* run branch test and branch-site test with PAML and godon
 * retrieve the measurements for gerbil-murine divergence
 
 ## Input
@@ -381,7 +381,7 @@ write.table(successful_dnds_index,
 
 ```
 
-### Retrieving Dn and Ds per lineage
+### Retrieving dN and dS per lineage
 
 We then need to retrieve the branch lengths of each tree. This gets stored in the table `results/muridae_dnds_per_orthogroup.txt`.
 
@@ -627,7 +627,7 @@ tests$p.val <- pchisq(tests$D, tests$df, lower.tail=FALSE)
 
 ```
 
-Note that multiple testing correction is not straightforward in this data set because there is a huge excess of tests where P value is 1. We applied the 1-sided robust FDR correction method ([Pounds and Cheng, 2006](https://academic.oup.com/bioinformatics/article/22/16/1979/208386)) for tests where `P < 0.99`:
+Note that multiple testing correction is not straightforward in this data set because there is a huge excess of tests where the P-value is 1. We applied the 1-sided robust FDR correction method ([Pounds and Cheng, 2006](https://academic.oup.com/bioinformatics/article/22/16/1979/208386)) for tests where `P < 0.99`:
 
 
 ```r
