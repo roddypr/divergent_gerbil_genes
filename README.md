@@ -2,7 +2,8 @@
 
 The scripts in this repository were written during the preparation of the following manuscript (currently under peer review):
 
-> Divergent genes in gerbils: origin, evolution and phenotypic relevance.
+> Divergent genes in gerbils: prevalence, relation to GC-biased substitution, and phenotypic relevance.
+
 > Yichen Dai, Rodrigo Pracana and Peter WH Holland
 
 > Department of Zoology, University of Oxford, 11a Mansfield Road,
