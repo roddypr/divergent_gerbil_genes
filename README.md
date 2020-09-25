@@ -1,6 +1,6 @@
 # Divergent gerbil genes
 
-The scripts in this repository were written during the preparation of the following manuscript (currently under peer review):
+The scripts in this repository were written during the preparation of the following manuscript (in press at BMC Evolutionary Biology):
 
 > Divergent genes in gerbils: prevalence, relation to GC-biased substitution, and phenotypic relevance.
 
@@ -9,19 +9,19 @@ The scripts in this repository were written during the preparation of the follow
 > Department of Zoology, University of Oxford, 11a Mansfield Road,
 Oxford, OX1 3SZ, UK
 
-In this manuscript, we analyse the divergence of the protein-coding genes of two gerbils in relation to those of other rodents and of *H. sapiens*.
+In this manuscript, we analysed the divergence between the protein-coding genes of two gerbil species and those of other rodents and of *H. sapiens*.
 
 ## Scripts
 
 This repository is divided into three parts:
 
 1. Scripts used to find groups of orthologous genes between rodents and *H. sapiens* 
-2. Scrips used to align each group of orthologous genes and measure substitution rates from the resulting alignments
+2. Scripts used to align each group of orthologous genes and to measure substitution rates from the resulting alignments
 3. Scripts used to measure protein dissimilarity between species for each group of orthologous genes
 
 ## Work environment
 
-We make use of several conda environments in our analyses. These are listed in the `software` directory. We used the `biobase` environment as default, and the `r` environment for any in-line R code.
+We used several conda environments in our analyses. All environments are listed in the `software` directory. We used the `biobase` environment as default, and the `r` environment for any in-line R code.
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
