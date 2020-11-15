@@ -1,13 +1,13 @@
 # Divergent gerbil genes
 
-The scripts in this repository were written during the preparation of the following manuscript (in press at BMC Evolutionary Biology):
+The scripts in this repository were written during the preparation of the following manuscript:
 
 > Divergent genes in gerbils: prevalence, relation to GC-biased substitution, and phenotypic relevance.
-
+>
 > Yichen Dai, Rodrigo Pracana and Peter WH Holland
+>
+> BMC Evol Biol 20, 134 (2020). https://doi.org/10.1186/s12862-020-01696-3
 
-> Department of Zoology, University of Oxford, 11a Mansfield Road,
-Oxford, OX1 3SZ, UK
 
 In this manuscript, we analysed the divergence between the protein-coding genes of two gerbil species and those of other rodents and of *H. sapiens*.
 
