@@ -14,7 +14,7 @@ mkdir -p DNA_alignments
 
 ```
 
-In the following script, we translate the alignments and edit them, keeping only the positions that are identitical in three outgroup species. The output is stored in `r protein_alignments`.
+In the following script, we translate the alignments and edit them, keeping only the positions that are identitical in three outgroup species. The output is stored in `protein_alignments`.
 
 ```sh
 
